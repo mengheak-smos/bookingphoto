@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const calendarEl = document.getElementById('calendar');
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        events: 'YOUR_DEPLOYED_WEB_APP_URL', // Use your Apps Script URL
+        events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec', // Use your Apps Script URL
         eventClick: function(info) {
             // Displays the same info as the Telegram message
             alert(info.event.title + "\n\n" + info.event.extendedProps.description);
