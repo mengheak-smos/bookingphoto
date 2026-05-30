@@ -40,24 +40,15 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', async function() {
-    const response = await fetch(
-        'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec'
-    );
-    const events = await response.json();
-
-    const calendar = new FullCalendar.Calendar(document.getElementById('calendar'), {
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
-        events: events,
-        height: '100%', // Syncs with Bootstrap container height
-        dayMaxEvents: true, // Shows "+ more" link if too many events
-        navLinks: true // Can click day/week names to navigate
+        events: 'YOUR_DEPLOYED_WEB_APP_URL', // Use your Apps Script URL
+        eventClick: function(info) {
+            // Displays the same info as the Telegram message
+            alert(info.event.title + "\n\n" + info.event.extendedProps.description);
+        }
     });
-
     calendar.render();
 });
 </script>
