@@ -35,6 +35,12 @@
         </div>
     </div>
 </div>
+<div id="details"
+     style="white-space: pre-wrap;
+            margin-top:20px;
+            border:1px solid #ccc;
+            padding:15px;">
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
@@ -45,9 +51,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         initialView: 'dayGridMonth',
         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec', // Use your Apps Script URL
         eventClick: function(info) {
-            // Displays the same info as the Telegram message
-            alert(info.event.title + "\n\n" + info.event.extendedProps.description);
-        }
+
+    document.getElementById("details").innerText =
+        info.event.extendedProps.description;
+
+}
     });
     calendar.render();
 });
