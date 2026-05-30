@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec', // Use your Apps Script URL
-        eventClick: function(info) {
+        eventClick: function(details) {
 
     document.getElementById("details").innerText =
         info.event.extendedProps.description;
