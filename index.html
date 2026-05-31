@@ -84,30 +84,77 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const calendarEl = document.getElementById('calendar');
 
-    const calendar = new FullCalendar.Calendar(calendarEl, {
+//     const calendar = new FullCalendar.Calendar(calendarEl, {
 
-        initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
+//         initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
 
-        height: '100%',
-        expandRows: true,
-        handleWindowResize: true,
+//         height: '100%',
+//         expandRows: true,
+//         handleWindowResize: true,
 
-        headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-        },
+//         headerToolbar: {
+//             left: 'prev,next today',
+//             center: 'title',
+//             right: 'dayGridMonth,timeGridWeek,timeGridDay'
+//         },
 
-        events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
+//         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
 
-        eventClick: function(details) {
-    alert(
-        "Event: " + details.event.title +
-        "\nPhotographer: " + (details.event.extendedProps.photographer || "") +
-        "\nDescription: " + (details.event.extendedProps.description || "")
-    );
-}
-    });
+//         eventClick: function(details) {
+//     alert(
+//         "Event: " + details.event.title +
+//         "\nPhotographer: " + (details.event.extendedProps.photographer || "") +
+//         "\nDescription: " + (details.event.extendedProps.description || "")
+//     );
+// }
+//     }); 
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+
+    initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
+
+    height: '100%',
+    expandRows: true,
+    handleWindowResize: true,
+
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+
+    events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
+
+    // ⭐ THIS IS THE MAIN CHANGE
+    eventContent: function(arg) {
+        return {
+            html: `
+                <div style="
+                    font-weight:600;
+                    font-size:12px;
+                    line-height:1.2;
+                ">
+                    📸 ${arg.event.extendedProps.photographer || 'Unknown'}
+                </div>
+                <div style="
+                    font-size:10px;
+                    opacity:0.75;
+                ">
+                    ${arg.event.title}
+                </div>
+            `
+        };
+    },
+
+    eventClick: function(details) {
+        const p = details.event.extendedProps;
+
+        alert(
+            "Event: " + details.event.title +
+            "\nPhotographer: " + (p.photographer || "N/A") +
+            "\nDescription: " + (p.description || "N/A")
+        );
+    }
+});
 
     //  THIS WAS MISSING (IMPORTANT)
     calendar.render();
