@@ -102,13 +102,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         eventClick: function(details) {
             alert(
-                // // details.event.title +
+                details.event.title +
                 // "Photographer: " +
-                // details.event.extendProps.photographer
-                // "\n" +
-                // details.event.extendedProps.description
-                "Event: " + details.event.title +
-                "\nPhotographer: " + details.event.extendedProps.photographer
+                details.event.extendProps.photographer
+                "\n" +
+                details.event.extendedProps.description
+                // "Event: " + details.event.title +
+                // "\nPhotographer: " + details.event.extendedProps.photographer
                 
             );
         }
