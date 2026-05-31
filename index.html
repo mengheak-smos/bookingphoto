@@ -36,12 +36,12 @@
     </div>
 </div>
 <hr>
-<div id="details"
+<!-- <div id="details"
      style="white-space: pre-wrap;
             margin-top:20px;
             border:1px solid #ccc;
             padding:15px;">
-</div>
+</div> -->
 
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
@@ -53,8 +53,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec', // Use your Apps Script URL
         eventClick: function(details) {
 
-    document.getElementById("details").innerText =
-        details.event.extendedProps.description;
+    alert(
+        details.event.title +
+        "\n\n" +
+        (details.event.extendedProps.description || "No details available")
+    );
 
 }
     });
