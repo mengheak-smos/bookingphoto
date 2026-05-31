@@ -1,0 +1,19 @@
+.fc {
+    font-size: 14px;
+}
+
+.fc-toolbar-title {
+    font-size: 1.8rem !important;
+    font-weight: bold;
+}
+
+.fc-event {
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.fc-daygrid-event {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
