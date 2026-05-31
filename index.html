@@ -35,7 +35,7 @@
         </div>
     </div>
 </div>
-<hr>
+
 <!-- <div id="details"
      style="white-space: pre-wrap;
             margin-top:20px;
@@ -53,18 +53,15 @@ document.addEventListener('DOMContentLoaded', async function() {
         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec', // Use your Apps Script URL
         eventClick: function(details) {
 
-    const p = details.event.extendedProps;
+    eventClick: function(details) {
 
     alert(
-        "Topic: " + details.event.title + "\n" +
-        "Venue: " + p.venue + "\n" +
-        "Room: " + p.room + "\n" +
-        "Conference: " + p.conference + "\n" +
-        "Building: " + p.building + "\n" +
-        "Host: " + p.host + "\n" +
-        "Photographer: " + p.photographer + "\n" +
-        "Time: " + p.startTime + " - " + p.endTime
+        details.event.title +
+        "\n\n" +
+        details.event.extendedProps.description
     );
+
+}
 
 }
     });
