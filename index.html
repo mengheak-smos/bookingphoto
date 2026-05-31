@@ -32,7 +32,7 @@
         padding: 6px;
     }
 
-    /* 📱 Mobile optimization */
+    /* Mobile optimization */
     @media (max-width: 768px) {
         .calendar-wrapper {
             padding: 4px;
@@ -86,27 +86,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
 
-    initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
+        initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
 
-    height: '100%',
-    expandRows: true,
-    handleWindowResize: true,
+        height: '100%',
+        expandRows: true,
+        handleWindowResize: true,
 
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
 
-    events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
+        events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
 
-    eventClick: function(details) {
-        alert(
-            details.event.title +
-            "\n\n" +
-            details.event.extendedProps.description
-        );
-    }
+        eventClick: function(details) {
+            alert(
+                details.event.title +
+                "\n\n" +
+                details.event.extendedProps.description
+            );
+        }
+    });
+
+    //  THIS WAS MISSING (IMPORTANT)
+    calendar.render();
+
+    // optional: auto refresh view when rotate/resize
+    window.addEventListener('resize', function () {
+        const newView = window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth';
+        calendar.changeView(newView);
+    });
+
 });
 </script>
 
