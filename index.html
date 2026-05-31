@@ -9,21 +9,55 @@
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
 
     <style>
-        body { background-color: #f8f9fa; }
-        
-        /* Ensures calendar container fills the viewport minus padding */
+    html, body {
+        height: 100%;
+        margin: 0;
+        background-color: #f8f9fa;
+    }
+
+    body {
+        overflow: hidden;
+    }
+
+    .calendar-wrapper {
+        height: 100vh;
+        padding: 8px;
+    }
+
+    #calendar {
+        height: 100%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 .3rem 1rem rgba(0,0,0,.12);
+        padding: 6px;
+    }
+
+    /* 📱 Mobile optimization */
+    @media (max-width: 768px) {
         .calendar-wrapper {
-            height: 95vh;
-            padding: 20px;
+            padding: 4px;
         }
 
         #calendar {
-            background: white;
-            padding: 20px;
-            border-radius: 1rem;
-            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15);
+            font-size: 12px;
+            padding: 2px;
         }
-    </style>
+
+        .fc .fc-toolbar {
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .fc .fc-toolbar-title {
+            font-size: 16px;
+        }
+
+        .fc .fc-button {
+            padding: 3px 6px;
+            font-size: 12px;
+        }
+    }
+</style>
 </head>
 
 <body>
@@ -51,24 +85,28 @@ document.addEventListener('DOMContentLoaded', function() {
     const calendarEl = document.getElementById('calendar');
 
     const calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
 
-        events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
+    initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
 
-        eventClick: function(details) {
+    height: '100%',
+    expandRows: true,
+    handleWindowResize: true,
 
-            alert(
-                details.event.title +
-                "\n\n" +
-                details.event.extendedProps.description
-            );
+    headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
 
-        }
+    events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
 
-    });
-
-    calendar.render();
-
+    eventClick: function(details) {
+        alert(
+            details.event.title +
+            "\n\n" +
+            details.event.extendedProps.description
+        );
+    }
 });
 </script>
 
