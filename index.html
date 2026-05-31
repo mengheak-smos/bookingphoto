@@ -101,17 +101,12 @@ document.addEventListener('DOMContentLoaded', function() {
         events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
 
         eventClick: function(details) {
-            alert(
-                details.event.title +
-                // "Photographer: " +
-                details.event.extendProps.photographer
-                "\n" +
-                details.event.extendedProps.description
-                // "Event: " + details.event.title +
-                // "\nPhotographer: " + details.event.extendedProps.photographer
-                
-            );
-        }
+    alert(
+        "Event: " + details.event.title +
+        "\nPhotographer: " + (details.event.extendedProps.photographer || "") +
+        "\nDescription: " + (details.event.extendedProps.description || "")
+    );
+}
     });
 
     //  THIS WAS MISSING (IMPORTANT)
