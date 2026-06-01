@@ -10,53 +10,92 @@
 
     <style>
     html, body {
-        height: 100%;
-        margin: 0;
-        background-color: #f8f9fa;
-    }
+    height: 100%;
+    margin: 0;
+    background: #f6f8fc;
+    font-family: Arial, sans-serif;
+}
 
-    body {
-        overflow: hidden;
-    }
+body {
+    overflow: hidden;
+}
+
+.calendar-wrapper {
+    height: 100vh;
+    padding: 10px;
+}
+
+#calendar {
+    height: 100%;
+    background: #fff;
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow:
+        0 1px 2px rgba(60,64,67,.3),
+        0 1px 3px rgba(60,64,67,.15);
+}
+
+/* Google Calendar style */
+.fc {
+    font-size: 14px;
+}
+
+.fc-toolbar-title {
+    font-size: 22px !important;
+    font-weight: 400 !important;
+    color: #3c4043;
+}
+
+.fc-button {
+    background: #fff !important;
+    color: #3c4043 !important;
+    border: 1px solid #dadce0 !important;
+    border-radius: 20px !important;
+}
+
+.fc-button:hover {
+    background: #f1f3f4 !important;
+}
+
+.fc-daygrid-day-number {
+    color: #3c4043 !important;
+    text-decoration: none;
+}
+
+.fc-col-header-cell {
+    background: white;
+}
+
+.fc-event {
+    border: none !important;
+    border-radius: 6px !important;
+    padding: 1px 4px !important;
+    font-size: 11px !important;
+}
+
+.fc-day-today {
+    background: #e8f0fe !important;
+}
+
+@media (max-width: 768px) {
 
     .calendar-wrapper {
-        height: 100vh;
-        padding: 8px;
+        padding: 4px;
     }
 
-    #calendar {
-        height: 100%;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 .3rem 1rem rgba(0,0,0,.12);
-        padding: 6px;
+    .fc-toolbar {
+        flex-direction: column;
+        gap: 5px;
     }
 
-    /* Mobile optimization */
-    @media (max-width: 768px) {
-        .calendar-wrapper {
-            padding: 4px;
-        }
-
-        #calendar {
-            font-size: 12px;
-            padding: 2px;
-        }
-
-        .fc .fc-toolbar {
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .fc .fc-toolbar-title {
-            font-size: 16px;
-        }
-
-        .fc .fc-button {
-            padding: 3px 6px;
-            font-size: 12px;
-        }
+    .fc-toolbar-title {
+        font-size: 16px !important;
     }
+
+    .fc-button {
+        font-size: 12px !important;
+    }
+}
 </style>
 </head>
 
@@ -110,16 +149,21 @@ document.addEventListener('DOMContentLoaded', function() {
 //     }); 
       const calendar = new FullCalendar.Calendar(calendarEl, {
 
-    initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth',
+    initialView: window.innerWidth < 768
+        ? 'timeGridDay'
+        : 'dayGridMonth',
 
     height: '100%',
     expandRows: true,
-    handleWindowResize: true,
 
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    fixedWeekCount: false,
+    showNonCurrentDates: false,
+    navLinks: true,
+    nowIndicator: true,
+
+    dayMaxEvents: 4,
+    dayMaxEventRows: true,
+    moreLinkClick: 'popover',
     },
     //demo vutha
     //events: 'https://script.google.com/macros/s/AKfycbzQ_GrjmANTVlCtxqmDAF0IahW1z9AywD7YTHIaFy-2tC9J7fLvf7cwwI8pZhu963Sf/exec',
@@ -128,24 +172,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // ⭐ THIS IS THE MAIN CHANGE
     eventContent: function(arg) {
-        return {
-            html: `
-                <div style="
-                    font-weight:600;
-                    font-size:12px;
-                    line-height:1.2;
-                ">
-                    📸 ${arg.event.extendedProps.photographer || 'Unknown'}
-                </div>
-                <div style="
-                    font-size:10px;
-                    opacity:0.75;
-                ">
-                    ${arg.event.title}
-                </div>
-            `
-        };
-    },
+
+    return {
+        html: `
+        <div style="
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size:11px;
+            font-weight:600;
+        ">
+            📸 ${arg.event.extendedProps.photographer || 'Unknown'}
+            •
+            ${arg.event.title}
+        </div>
+        `
+    };
+},
 
     eventClick: function(details) {
         const p = details.event.extendedProps;
