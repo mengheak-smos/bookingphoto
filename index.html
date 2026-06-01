@@ -274,6 +274,11 @@ document.addEventListener('DOMContentLoaded', function() {
     //  THIS WAS MISSING (IMPORTANT)
     calendar.render();
 
+    //sent
+    setInterval(() => {
+    calendar.refetchEvents();
+}, 30000);
+
     // optional: auto refresh view when rotate/resize
     window.addEventListener('resize', function () {
         const newView = window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth';
