@@ -236,6 +236,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     eventClick: function(details) {
 
+    // Close FullCalendar popover first
+    document.body.click();
+
     const p = details.event.extendedProps;
 
     document.getElementById('modalEvent').textContent =
@@ -247,17 +250,12 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('modalDescription').textContent =
         p.description || "N/A";
 
-    window.copyText =
-`Event: ${details.event.title || "N/A"}
-Photographer: ${p.photographer || "N/A"}
-Description: ${p.description || "N/A"}`;
-
-    const modal =
-        new bootstrap.Modal(
+    setTimeout(() => {
+        const modal = new bootstrap.Modal(
             document.getElementById('eventModal')
         );
-
-    modal.show();
+        modal.show();
+    }, 100);
 }
 
 });
