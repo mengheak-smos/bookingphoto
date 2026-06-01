@@ -98,7 +98,50 @@ body {
 }
 </style>
 </head>
+<!-- Event Details Modal -->
+<div class="modal fade" id="eventModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
+      <div class="modal-header">
+        <h5 class="modal-title">Booking Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body">
+
+        <div class="mb-2">
+          <strong>Event:</strong>
+          <div id="modalEvent"></div>
+        </div>
+
+        <div class="mb-2">
+          <strong>Photographer:</strong>
+          <div id="modalPhotographer"></div>
+        </div>
+
+        <div class="mb-2">
+          <strong>Description:</strong>
+          <div id="modalDescription" style="white-space: pre-wrap;"></div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          Close
+        </button>
+
+        <button class="btn btn-primary"
+                onclick="copyDetails()">
+          Copy
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
 <body>
 
 <div class="container-fluid calendar-wrapper">
@@ -193,14 +236,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     eventClick: function(details) {
 
-        const p = details.event.extendedProps;
+    const p = details.event.extendedProps;
 
-        alert(
-            "Event: " + details.event.title +
-            "\nPhotographer: " + (p.photographer || "N/A") +
-            "\nDescription: " + (p.description || "N/A")
+    document.getElementById('modalEvent').textContent =
+        details.event.title || "N/A";
+
+    document.getElementById('modalPhotographer').textContent =
+        p.photographer || "N/A";
+
+    document.getElementById('modalDescription').textContent =
+        p.description || "N/A";
+
+    window.copyText =
+`Event: ${details.event.title || "N/A"}
+Photographer: ${p.photographer || "N/A"}
+Description: ${p.description || "N/A"}`;
+
+    const modal =
+        new bootstrap.Modal(
+            document.getElementById('eventModal')
         );
-    }
+
+    modal.show();
+}
 
 });
 
