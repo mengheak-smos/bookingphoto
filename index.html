@@ -28,13 +28,13 @@ body {
 #calendar {
     height: 100%;
     background: #fff;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none;
+    border-radius: 16px;
+    padding: 10px;
+    box-shadow:
+        0 1px 2px rgba(60,64,67,.3),
+        0 1px 3px rgba(60,64,67,.15);
 }
-.calendar-wrapper{
-    padding:0;
-}
+
 /* Google Calendar style */
 .fc {
     font-size: 14px;
@@ -68,15 +68,13 @@ body {
 
 .fc-event {
     border: none !important;
-    border-radius: 12px !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    padding: 2px 8px !important;
-    cursor: pointer;
+    border-radius: 6px !important;
+    padding: 1px 4px !important;
+    font-size: 11px !important;
 }
 
-.fc-daygrid-event {
-    margin-top: 2px !important;
+.fc-day-today {
+    background: #e8f0fe !important;
 }
 .modal {
     z-index: 99999 !important;
@@ -109,61 +107,53 @@ body {
         font-size: 12px !important;
     }
 }
-        .google-modal{
-    border:none;
-    border-radius:28px;
-}
-
-.google-modal .modal-body{
-    min-height:300px;
-}
-
-.event-color{
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:#c0ca33;
-}
 </style>
 </head>
-<body>
 <!-- Event Details Modal -->
-<div class="modal fade" id="eventModal">
-<div class="modal-dialog modal-lg modal-dialog-centered">
+<div class="modal fade" id="eventModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
 
-<div class="modal-content google-modal">
+      <div class="modal-header">
+        <h5 class="modal-title">Booking Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
 
-<div class="modal-body p-4">
+      <div class="modal-body">
 
-    <div class="d-flex align-items-center mb-4">
-        <div class="event-color"></div>
-
-        <div class="ms-3">
-            <h3 id="modalEvent"
-                class="mb-1"></h3>
-
-            <small id="modalDate"></small>
+        <div class="mb-2">
+          <strong>Event:</strong>
+          <div id="modalEvent"></div>
         </div>
+
+        <div class="mb-2">
+          <strong>Photographer:</strong>
+          <div id="modalPhotographer"></div>
+        </div>
+
+        <div class="mb-2">
+          <strong>Description:</strong>
+          <div id="modalDescription" style="white-space: pre-wrap;"></div>
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary"
+                data-bs-dismiss="modal">
+          Close
+        </button>
+
+        <!-- <button class="btn btn-primary"
+                onclick="copyDetails()">
+          Copy
+        </button> -->
+      </div>
+
     </div>
-
-    <div class="mb-3">
-        📍 <span id="modalLocation"></span>
-    </div>
-
-    <div class="mb-3">
-        👤 <span id="modalPhotographer"></span>
-    </div>
-
-    <div class="mb-3">
-        📝 <span id="modalDescription"></span>
-    </div>
-
+  </div>
 </div>
-
-</div>
-</div>
-</div>
-
+<body>
 
 <div class="container-fluid calendar-wrapper">
     <div class="row h-100">
@@ -238,18 +228,22 @@ document.addEventListener('DOMContentLoaded', function() {
     events: 'https://script.google.com/macros/s/AKfycbxCHYYzDZS39vL_REgx_uWXJspnhtlr5sQHQEl_XHN2a5aRym-h8YxpnB7RwvOiusdp/exec',
 
     eventContent: function(arg) {
-    return {
-        html: `
-        <div style="
-            overflow:hidden;
-            text-overflow:ellipsis;
-            white-space:nowrap;
-        ">
-            ${arg.event.title}
-        </div>
-        `
-    };
-},
+        return {
+            html: `
+                <div style="
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size:11px;
+                    font-weight:600;
+                ">
+                    📸 ${arg.event.extendedProps.photographer || 'Unknown'}
+                    •
+                    ${arg.event.title}
+                </div>
+            `
+        };
+    },
 
     eventClick: function(details) {
 
@@ -257,8 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.click();
 
     const p = details.event.extendedProps;
-    document.getElementById('modalLocation').textContent =
-    p.location || "N/A";
+
     document.getElementById('modalEvent').textContent =
         details.event.title || "N/A";
 
@@ -267,8 +260,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('modalDescription').textContent =
         p.description || "N/A";
-    document.getElementById('modalDate').innerText =
-    details.event.start.toLocaleString();
+
     setTimeout(() => {
         const modal = new bootstrap.Modal(
             document.getElementById('eventModal')
