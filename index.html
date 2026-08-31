@@ -1,600 +1,647 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IT Support By Campus</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦖</text></svg>">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IT Support By Campus</title>
+
+<link rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦖</text></svg>">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet">
+
+<!-- FullCalendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css"
+      rel="stylesheet">
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
-    <style>
-    html, body {
-    height: 100%;
-    margin: 0;
-    background: #f6f8fc;
-    font-family: "Google Sans", sans-serif;
-}
 
-body {
-    overflow: hidden;
-}
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap"
+      rel="stylesheet">
 
-.calendar-wrapper {
-    height: 100vh;
-    padding: 10px;
-}
 
-#calendar {
-    height: 100%;
-    background: #fff;
-    border-radius: 0;
-    padding: 0;
-    box-shadow: none;
-}
-.calendar-wrapper{
-    padding:0;
-}
-/* Google Calendar style */
-.fc {
-    font-size: 14px;
-}
+<style>
 
-.fc-toolbar-title {
-    font-size: 22px !important;
-    font-weight: 400 !important;
-    color: #3c4043;
-}
+    /* =====================================================
+       BASIC
+    ===================================================== */
 
-.fc-button {
-    background: #fff !important;
-    color: #3c4043 !important;
-    border: 1px solid #dadce0 !important;
-    border-radius: 20px !important;
-}
-
-.fc-button:hover {
-    background: #f1f3f4 !important;
-}
-
-.fc-daygrid-day-number {
-    color: #3c4043 !important;
-    text-decoration: none;
-}
-
-.fc-col-header-cell {
-    background: white;
-}
-
-.fc-event {
-    border: none !important;
-
-    border-radius: 10px !important;
-
-    font-size: 12px !important;
-
-    font-weight: 500 !important;
-
-    padding: 3px 8px !important;
-
-    cursor: pointer;
-
-    transition:
-        transform .15s ease,
-        box-shadow .15s ease;
-}
-
-.fc-event:hover {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 2px 6px rgba(60,64,67,.18);
-}
-
-.fc-daygrid-event {
-    margin-top: 2px !important;
-}
-.modal {
-    z-index: 99999 !important;
-}
-
-.modal-backdrop {
-    z-index: 99998 !important;
-}
-
-/* =========================================
-   CUTE + RESPONSIVE MORE EVENTS POPOVER
-========================================= */
-
-.fc-popover {
-    z-index: 1000 !important;
-
-    width: min(420px, calc(100vw - 24px)) !important;
-    max-width: calc(100vw - 24px) !important;
-
-    border: 1px solid #dadce0 !important;
-    border-radius: 16px !important;
-
-    overflow: hidden !important;
-
-    box-shadow:
-        0 4px 8px rgba(60, 64, 67, 0.15),
-        0 8px 24px rgba(60, 64, 67, 0.15) !important;
-
-    background: #fff !important;
-}
-
-
-/* Popover header */
-
-.fc-popover-header {
-    padding: 12px 14px !important;
-
-    background: #fff !important;
-
-    border-bottom: 1px solid #f1f3f4 !important;
-
-    font-size: 14px !important;
-    font-weight: 600 !important;
-
-    color: #3c4043 !important;
-}
-
-
-/* Close button */
-
-.fc-popover-close {
-    width: 28px !important;
-    height: 28px !important;
-
-    border-radius: 50% !important;
-
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-
-    transition: background .2s ease;
-}
-
-.fc-popover-close:hover {
-    background: #f1f3f4 !important;
-}
-
-
-/* Events inside popup */
-
-.fc-popover-body {
-    padding: 8px !important;
-
-    max-height: 420px;
-
-    overflow-y: auto;
-}
-
-
-/* Nice scrollbar */
-
-.fc-popover-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.fc-popover-body::-webkit-scrollbar-thumb {
-    background: #dadce0;
-    border-radius: 10px;
-}
-
-.fc-popover-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-.app-layout{
-    display:flex;
-    height:100vh;
-}
-
-.sidebar{
-    width:280px;
-    background:#fff;
-    border-right:1px solid #dadce0;
-    padding:20px;
-    overflow:auto;
-}
-/* =========================================
-   MORE LINK
-========================================= */
-
-.fc-more-link {
-    display: inline-flex !important;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 3px 9px !important;
-
-    margin-top: 3px !important;
-
-    border-radius: 999px !important;
-
-    background: #f1f3f4 !important;
-
-    color: #1a73e8 !important;
-
-    font-size: 12px !important;
-
-    font-weight: 600 !important;
-
-    text-decoration: none !important;
-
-    transition:
-        background .2s ease,
-        transform .15s ease;
-}
-
-.fc-more-link:hover {
-    background: #dbeafe !important;
-
-    transform: translateY(-1px);
-}
-.calendar-main{
-    flex:1;
-    background:#fff;
-}
-
-.create-btn{
-    width:100%;
-    border:none;
-    background:white;
-    padding:14px;
-    border-radius:16px;
-    box-shadow:
-      0 1px 2px rgba(60,64,67,.3),
-      0 1px 3px rgba(60,64,67,.15);
-
-    font-size:16px;
-    margin-bottom:20px;
-}
-
-.mini-calendar{
-    padding:10px 0;
-    border-bottom:1px solid #eee;
-}
-
-.filter-section{
-    margin-top:20px;
-}
-
-.filter-section label{
-    display:block;
-    margin-bottom:10px;
-}
-@media(max-width:768px){
-
-    .sidebar{
-        display:none;
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        background: #f6f8fc;
+        font-family: "Google Sans", sans-serif;
     }
 
-    .calendar-main{
-        width:100%;
-    }
-}
-@media (max-width: 768px) {
-
-    .fc-popover {
-        width: calc(100vw - 16px) !important;
-
-        max-width: calc(100vw - 16px) !important;
-
-        border-radius: 18px !important;
+    body {
+        overflow: hidden;
     }
 
-    .fc-popover-body {
-        max-height: 60vh;
 
-        padding: 8px !important;
+    /* =====================================================
+       APP LAYOUT
+    ===================================================== */
+
+    .app-layout {
+        display: flex;
+        height: 100vh;
+        width: 100%;
     }
 
-    .fc-popover-header {
-        padding: 13px !important;
 
-        font-size: 14px !important;
+    /* =====================================================
+       SIDEBAR
+    ===================================================== */
+
+    .sidebar {
+        width: 280px;
+        background: #fff;
+        border-right: 1px solid #dadce0;
+        padding: 20px;
+        overflow: auto;
+        flex-shrink: 0;
     }
 
-    .fc-popover .fc-event {
-        min-height: 32px;
+    .create-btn {
+        width: 100%;
+        border: none;
+        background: white;
+        padding: 14px;
+        border-radius: 16px;
 
-        font-size: 12px !important;
+        box-shadow:
+            0 1px 2px rgba(60, 64, 67, .3),
+            0 1px 3px rgba(60, 64, 67, .15);
 
+        font-size: 16px;
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+
+    .create-btn:hover {
+        background: #f8f9fa;
+    }
+
+    .mini-calendar {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .filter-section {
+        margin-top: 20px;
+        margin-bottom: 12px;
+        font-weight: 600;
+    }
+
+    .sidebar label {
+        display: block;
+        margin-bottom: 10px;
+        cursor: pointer;
+    }
+
+
+    /* =====================================================
+       CALENDAR
+    ===================================================== */
+
+    .calendar-main {
+        flex: 1;
+        background: #fff;
+        min-width: 0;
+    }
+
+    #calendar {
+        height: 100%;
+        background: #fff;
+        padding: 0;
+        box-shadow: none;
+    }
+
+
+    /* =====================================================
+       GOOGLE CALENDAR STYLE
+    ===================================================== */
+
+    .fc {
+        font-size: 14px;
+    }
+
+    .fc-toolbar-title {
+        font-size: 22px !important;
+        font-weight: 400 !important;
+        color: #3c4043;
+    }
+
+    .fc-button {
+        background: #fff !important;
+        color: #3c4043 !important;
+        border: 1px solid #dadce0 !important;
+        border-radius: 20px !important;
+    }
+
+    .fc-button:hover {
+        background: #f1f3f4 !important;
+    }
+
+    .fc-daygrid-day-number {
+        color: #3c4043 !important;
+        text-decoration: none;
+    }
+
+    .fc-col-header-cell {
+        background: white;
+    }
+
+
+    /* =====================================================
+       EVENTS
+    ===================================================== */
+
+    .fc-event {
+        border: none !important;
         border-radius: 10px !important;
+        font-size: 12px !important;
+        font-weight: 500 !important;
+        padding: 3px 8px !important;
+        cursor: pointer;
 
-        padding: 4px 8px !important;
+        transition:
+            transform .15s ease,
+            box-shadow .15s ease;
     }
+
+    .fc-event:hover {
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 2px 6px rgba(60, 64, 67, .18);
+    }
+
+    .fc-daygrid-event {
+        margin-top: 2px !important;
+    }
+
+
+    /* =====================================================
+       EVENT CONTENT
+    ===================================================== */
+
+    .custom-event-content {
+        display: flex;
+        align-items: center;
+
+        min-width: 0;
+        width: 100%;
+
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .event-photographer {
+        font-weight: 600;
+        flex-shrink: 0;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .event-separator {
+        margin: 0 4px;
+        opacity: .7;
+        flex-shrink: 0;
+    }
+
+    .event-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+
+    /* =====================================================
+       MORE LINK
+    ===================================================== */
 
     .fc-more-link {
-        font-size: 11px !important;
+        display: inline-flex !important;
+        align-items: center;
+        justify-content: center;
 
-        padding: 3px 8px !important;
+        padding: 3px 9px !important;
+        margin-top: 3px !important;
+
+        border-radius: 999px !important;
+
+        background: #f1f3f4 !important;
+        color: #1a73e8 !important;
+
+        font-size: 12px !important;
+        font-weight: 600 !important;
+
+        text-decoration: none !important;
+
+        transition:
+            background .2s ease,
+            transform .15s ease;
     }
-}
-        .google-modal{
-    border:none;
-    border-radius:28px;
-}
 
-.google-modal .modal-body{
-    min-height:300px;
-}
+    .fc-more-link:hover {
+        background: #dbeafe !important;
+        transform: translateY(-1px);
+    }
 
-.event-color{
-    width:16px;
-    height:16px;
-    border-radius:50%;
-    background:#dfdf2c;
-}
-.calendar-header{
-    height:64px;
-    border-bottom:1px solid #dadce0;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 20px;
-    background:rgb(255, 255, 255);
-}
-/* =========================================
-   EVENT CONTENT
-========================================= */
 
-.custom-event-content {
-    display: flex;
+    /* =====================================================
+       DISABLE FULLCALENDAR MORE POPOVER
+       We use our own centered modal instead.
+    ===================================================== */
 
-    align-items: center;
+    .fc-popover {
+        display: none !important;
+    }
 
-    min-width: 0;
 
-    overflow: hidden;
+    /* =====================================================
+       BOOTSTRAP MODAL Z-INDEX
+    ===================================================== */
 
-    white-space: nowrap;
-}
+    .modal {
+        z-index: 99999 !important;
+    }
 
-.event-photographer {
-    font-weight: 600;
+    .modal-backdrop {
+        z-index: 99998 !important;
+    }
 
-    flex-shrink: 0;
 
-    overflow: hidden;
+    /* =====================================================
+       MORE EVENTS CENTER MODAL
+    ===================================================== */
 
-    text-overflow: ellipsis;
-}
+    .more-events-modal {
+        border: none !important;
+        border-radius: 24px !important;
+        overflow: hidden;
 
-.event-separator {
-    margin: 0 4px;
+        box-shadow:
+            0 10px 30px rgba(60, 64, 67, .18),
+            0 20px 60px rgba(60, 64, 67, .15);
+    }
 
-    opacity: .7;
+    .more-events-modal .modal-header {
+        padding: 18px 22px;
 
-    flex-shrink: 0;
-}
+        border-bottom: 1px solid #f1f3f4;
 
-.event-title {
-    overflow: hidden;
+        background: #fff;
+    }
 
-    text-overflow: ellipsis;
+    .more-events-modal .modal-title {
+        font-size: 20px;
+        font-weight: 600;
+        color: #3c4043;
+    }
 
-    white-space: nowrap;
-}
-/* Events inside the more popup */
+    #moreEventsBody {
+        max-height: 65vh;
+        overflow-y: auto;
+        padding: 14px 18px;
+    }
 
-.fc-popover .fc-daygrid-event {
-    margin: 3px 2px !important;
 
-    border-radius: 10px !important;
+    /* =====================================================
+       EVENT ITEM INSIDE MORE MODAL
+    ===================================================== */
 
-    min-height: 28px;
+    .more-event-item {
+        display: flex;
+        align-items: center;
 
-    display: flex;
+        gap: 12px;
 
-    align-items: center;
-}
-.fc-popover .fc-event-main {
-    width: 100%;
+        padding: 12px 14px;
+        margin-bottom: 8px;
 
-    overflow: hidden;
-}
+        border-radius: 14px;
+
+        background: #f8f9fa;
+
+        cursor: pointer;
+
+        transition:
+            background .15s ease,
+            transform .15s ease;
+    }
+
+    .more-event-item:hover {
+        background: #f1f3f4;
+        transform: translateY(-1px);
+    }
+
+    .more-event-dot {
+        width: 10px;
+        height: 10px;
+
+        border-radius: 50%;
+
+        flex-shrink: 0;
+    }
+
+    .more-event-content {
+        min-width: 0;
+        flex: 1;
+    }
+
+    .more-event-time {
+        font-size: 12px;
+        color: #70757a;
+        margin-bottom: 2px;
+    }
+
+    .more-event-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: #3c4043;
+
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .more-event-photographer {
+        font-size: 12px;
+        color: #5f6368;
+    }
+
+
+    /* =====================================================
+       SCROLLBAR
+    ===================================================== */
+
+    #moreEventsBody::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    #moreEventsBody::-webkit-scrollbar-thumb {
+        background: #dadce0;
+        border-radius: 10px;
+    }
+
+    #moreEventsBody::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+
+    /* =====================================================
+       EVENT DETAILS MODAL
+    ===================================================== */
+
+    .google-modal {
+        border: none;
+        border-radius: 28px;
+        overflow: hidden;
+    }
+
+    .google-modal .modal-body {
+        min-height: 300px;
+    }
+
+    .event-color {
+        width: 16px;
+        height: 16px;
+
+        border-radius: 50%;
+
+        background: #dfdf2c;
+        flex-shrink: 0;
+    }
+
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 768px) {
+
+        body {
+            overflow: hidden;
+        }
+
+        .sidebar {
+            display: none;
+        }
+
+        .calendar-main {
+            width: 100%;
+        }
+
+        .fc-toolbar-title {
+            font-size: 18px !important;
+        }
+
+        .fc {
+            font-size: 12px;
+        }
+
+        .fc-more-link {
+            font-size: 11px !important;
+            padding: 3px 8px !important;
+        }
+
+        .more-events-modal {
+            border-radius: 20px !important;
+            margin: 10px;
+        }
+
+        #moreEventsBody {
+            max-height: 70vh;
+            padding: 10px;
+        }
+
+        .more-event-item {
+            padding: 12px;
+        }
+
+        .google-modal {
+            border-radius: 20px;
+        }
+    }
+
 </style>
+
 </head>
+
 <body>
-<!-- Event Details Modal -->
- <!-- <div class="calendar-header">
 
-    <h4>Booking Calendar</h4>
-
-    <div>
-        <button class="btn btn-light">Today</button>
-    </div> -->
-
-</div>
-
-<div id="calendar"></div>
-<div class="modal fade" id="eventModal">
-<div class="modal-dialog modal-lg modal-dialog-centered">
-
-<div class="modal-content google-modal">
-
-<div class="modal-body p-4">
-
-    <div class="d-flex align-items-center mb-4">
-        <div class="event-color"></div>
-
-        <div class="ms-3">
-            <h3 id="modalEvent"
-                class="mb-1"></h3>
-
-            <small id="modalDate"></small>
-        </div>
-    </div>
-
-    <div class="mb-3">
-        📍 <span id="modalLocation"></span>
-    </div>
-
-    <div class="mb-3">
-        👤 <span id="modalPhotographer"></span>
-    </div>
-
-    <div class="mb-3">
-    📝
-    <div id="modalDescription" style="white-space: pre-wrap;"></div>
-</div>
-
-</div>
-
-</div>
-</div>
-</div>
-
+<!-- ========================================================= MAIN APP ========================================================= -->
 
 <div class="app-layout">
-    <aside class="sidebar">
-        <button class="create-btn">
-            + create
-        </button>
 
-        <div class="mini-calender">
-            <h6>June 2026</h6>
-        </div>
 
-        <div class="filter-section">
-            Calender
-        </div>
 
-        <label for="">
-            <input type="checkbox" checked>
-            Events
-        </label>
 
-        <label for="">
-            <input type="checkbox" checked>
-            Photographer
-        </label>
+<!-- =====================================================
+     CALENDAR
+===================================================== -->
 
-        <label for="">
-            <input type="checkbox" checked>
-            Meetings
-        </label>
-    </aside>
-    <main class="calender-main">
-        <div id="calender"></div>
-    </main>
+<main class="calendar-main">
+
+    <div id="calendar"></div>
+
+</main>
+
 </div>
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
+<!-- ========================================================= EVENT DETAILS MODAL ========================================================= -->
 
-    const calendarEl = document.getElementById('calendar');
+<div class="modal fade" id="eventModal" tabindex="-1" aria-hidden="true">
+
+<div class="modal-dialog modal-lg modal-dialog-centered">
+
+    <div class="modal-content google-modal">
+
+        <div class="modal-body p-4">
 
 
-      const calendar = new FullCalendar.Calendar(calendarEl, {
+            <!-- Event title -->
 
-    initialView: window.innerWidth < 768
-        ? 'timeGridDay'
-        : 'dayGridMonth',
+            <div class="d-flex align-items-center mb-4">
 
-    height: '100%',
-    expandRows: true,
+                <div class="event-color"></div>
 
-    fixedWeekCount: false,
-    showNonCurrentDates: false,
-    navLinks: true,
-    nowIndicator: true,
+                <div class="ms-3">
 
-    dayMaxEvents: 4,
-    dayMaxEventRows: true,
-    moreLinkClick: 'popover',
+                    <h3 id="modalEvent"
+                        class="mb-1">
+                    </h3>
 
-    headerToolbar: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
+                    <small id="modalDate"
+                           class="text-muted">
+                    </small>
 
-    events: 'https://script.google.com/macros/s/AKfycbxCHYYzDZS39vL_REgx_uWXJspnhtlr5sQHQEl_XHN2a5aRym-h8YxpnB7RwvOiusdp/exec',
+                </div>
 
-    eventContent: function(arg) {
+            </div>
 
-    const photographer =
-        arg.event.extendedProps.photographer || 'Unknown';
 
-    const title =
-        arg.event.title || 'Untitled';
+            <!-- Location -->
 
-    return {
-        html: `
-            <div class="custom-event-content">
+            <div class="mb-3">
 
-                <span class="event-photographer">
-                    ${photographer}
-                </span>
-
-                <span class="event-separator">·</span>
-
-                <span class="event-title">
-                    ${title}
+                📍
+                <span id="modalLocation">
                 </span>
 
             </div>
-        `
-    };
-},
 
-    eventClick: function(details) {
 
-    // Close FullCalendar popover first
-    document.body.click();
+            <!-- Photographer -->
 
-    const p = details.event.extendedProps;
-    document.getElementById('modalLocation').textContent =
-    p.location || "N/A";
-    document.getElementById('modalEvent').textContent =
-        details.event.title || "N/A";
+            <div class="mb-3">
 
-    document.getElementById('modalPhotographer').textContent =
-        p.photographer || "N/A";
+                👤
+                <span id="modalPhotographer">
+                </span>
 
-    document.getElementById('modalDescription').textContent =
-        p.description || "N/A";
-    document.getElementById('modalDate').innerText =
-    details.event.start.toLocaleString();
-    setTimeout(() => {
-        const modal = new bootstrap.Modal(
-            document.getElementById('eventModal')
-        );
-        modal.show();
-    }, 100);
-}
+            </div>
 
-});
 
-    //  THIS WAS MISSING (IMPORTANT)
-    calendar.render();
+            <!-- Description -->
 
-    //sent
-    setInterval(() => {
-    calendar.refetchEvents();
-}, 30000);
+            <div class="mb-3">
 
-    // optional: auto refresh view when rotate/resize
-    window.addEventListener('resize', function () {
-        const newView = window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth';
-        calendar.changeView(newView);
-    });
+                📝
 
-});
-</script>
+                <div id="modalDescription"
+                     style="white-space: pre-wrap;">
+                </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            </div>
+
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- ========================================================= MORE EVENTS CENTER MODAL ========================================================= -->
+
+<div class="modal fade" id="moreEventsModal" tabindex="-1" aria-hidden="true">
+
+<div class="modal-dialog modal-dialog-centered modal-lg">
+
+    <div class="modal-content more-events-modal">
+
+
+        <!-- Header -->
+
+        <div class="modal-header">
+
+            <div>
+
+                <h5 class="modal-title"
+                    id="moreEventsTitle">
+                    Events
+                </h5>
+
+                <small class="text-muted">
+                    All events for this day
+                </small>
+
+            </div>
+
+
+            <button type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+            </button>
+
+        </div>
+
+
+        <!-- Event list -->
+
+        <div class="modal-body"
+             id="moreEventsBody">
+        </div>
+
+
+    </div>
+
+</div>
+
+</div>
+
+
+
+
+<!-- ========================================================= JAVASCRIPT ========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"> </script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"> </script>
+
+<script> document.addEventListener('DOMContentLoaded', function () { /* ===================================================== CALENDAR ELEMENT ===================================================== */ const calendarEl = document.getElementById('calendar'); /* ===================================================== CREATE CALENDAR ===================================================== */ const calendar = new FullCalendar.Calendar(calendarEl, { /* ================================================= VIEW ================================================= */ initialView: window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth', height: '100%', expandRows: true, fixedWeekCount: false, showNonCurrentDates: false, navLinks: true, nowIndicator: true, /* ================================================= SHOW ONLY 4 EVENTS + MORE ================================================= */ dayMaxEvents: 4, dayMaxEventRows: true, /* ================================================= MORE EVENTS CLICK ================================================= */ moreLinkClick: function (info) { const body = document.getElementById( 'moreEventsBody' ); const title = document.getElementById( 'moreEventsTitle' ); /* --------------------------------------------- Clear old events --------------------------------------------- */ body.innerHTML = ''; /* --------------------------------------------- Set date title --------------------------------------------- */ title.textContent = info.date.toLocaleDateString( 'en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' } ); /* --------------------------------------------- Create every event --------------------------------------------- */ info.allSegs.forEach(function (seg) { const event = seg.event; const p = event.extendedProps; const item = document.createElement('div'); item.className = 'more-event-item'; /* ----------------------------------------- Event color ----------------------------------------- */ const color = event.backgroundColor || event.borderColor || '#1a73e8'; /* ----------------------------------------- Event time ----------------------------------------- */ const time = event.start ? event.start.toLocaleTimeString( [], { hour: '2-digit', minute: '2-digit' } ) : ''; /* ----------------------------------------- Event HTML ----------------------------------------- */ item.innerHTML = ` <div class="more-event-dot" style="background:${color}"> </div> <div class="more-event-content"> <div class="more-event-time"> ${time} </div> <div class="more-event-title"> ${event.title || 'Untitled'} </div> <div class="more-event-photographer"> 👤 ${p.photographer || 'Unknown'} </div> </div> `; /* ----------------------------------------- CLICK EVENT ----------------------------------------- */ item.addEventListener( 'click', function () { /* --------------------------------- Get More Events modal --------------------------------- */ const moreModal = bootstrap.Modal.getInstance( document.getElementById( 'moreEventsModal' ) ); /* --------------------------------- Close More Events modal --------------------------------- */ if (moreModal) { moreModal.hide(); } /* --------------------------------- Fill Event Details --------------------------------- */ document.getElementById( 'modalEvent' ).textContent = event.title || 'N/A'; document.getElementById( 'modalLocation' ).textContent = p.location || 'N/A'; document.getElementById( 'modalPhotographer' ).textContent = p.photographer || 'N/A'; document.getElementById( 'modalDescription' ).textContent = p.description || 'N/A'; document.getElementById( 'modalDate' ).textContent = event.start ? event.start.toLocaleString() : 'N/A'; /* --------------------------------- Open Event Details after More Events modal closes --------------------------------- */ setTimeout( function () { const eventModal = new bootstrap.Modal( document.getElementById( 'eventModal' ) ); eventModal.show(); }, 350 ); } ); /* ----------------------------------------- Add item to modal ----------------------------------------- */ body.appendChild(item); }); /* --------------------------------------------- Open centered modal --------------------------------------------- */ const moreModal = new bootstrap.Modal( document.getElementById( 'moreEventsModal' ) ); moreModal.show(); /* --------------------------------------------- IMPORTANT: Stop FullCalendar default popover --------------------------------------------- */ return false; }, /* ================================================= HEADER ================================================= */ headerToolbar: { left: 'prev,next today', center: 'title', right: 'dayGridMonth,timeGridWeek,timeGridDay' }, /* ================================================= GOOGLE APPS SCRIPT EVENT SOURCE ================================================= */ events: 'https://script.google.com/macros/s/AKfycbxCHYYzDZS39vL_REgx_uWXJspnhtlr5sQHQEl_XHN2a5aRym-h8YxpnB7RwvOiusdp/exec', /* ================================================= EVENT CONTENT ================================================= */ eventContent: function (arg) { const photographer = arg.event.extendedProps.photographer || 'Unknown'; const title = arg.event.title || 'Untitled'; return { html: ` <div class="custom-event-content"> <span class="event-photographer"> ${photographer} </span> <span class="event-separator"> · </span> <span class="event-title"> ${title} </span> </div> ` }; }, /* ================================================= NORMAL EVENT CLICK ================================================= */ eventClick: function (details) { const p = details.event.extendedProps; /* --------------------------------------------- Close FullCalendar popover if any --------------------------------------------- */ document.body.click(); /* --------------------------------------------- Fill Event Details --------------------------------------------- */ document.getElementById( 'modalEvent' ).textContent = details.event.title || 'N/A'; document.getElementById( 'modalLocation' ).textContent = p.location || 'N/A'; document.getElementById( 'modalPhotographer' ).textContent = p.photographer || 'N/A'; document.getElementById( 'modalDescription' ).textContent = p.description || 'N/A'; document.getElementById( 'modalDate' ).textContent = details.event.start ? details.event.start.toLocaleString() : 'N/A'; /* --------------------------------------------- Open Event Details --------------------------------------------- */ setTimeout( function () { const modal = new bootstrap.Modal( document.getElementById( 'eventModal' ) ); modal.show(); }, 100 ); } }); /* ===================================================== RENDER ===================================================== */ calendar.render(); /* ===================================================== AUTO REFRESH EVERY 30 SECONDS ===================================================== */ setInterval( function () { calendar.refetchEvents(); }, 30000 ); /* ===================================================== RESPONSIVE VIEW ===================================================== */ window.addEventListener( 'resize', function () { const newView = window.innerWidth < 768 ? 'timeGridDay' : 'dayGridMonth'; if (calendar.view.type !== newView) { calendar.changeView(newView); } } ); }); </script>
+
 </body>
+
 </html>
