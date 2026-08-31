@@ -71,11 +71,27 @@ body {
 
 .fc-event {
     border: none !important;
-    border-radius: 12px !important;
+
+    border-radius: 10px !important;
+
     font-size: 12px !important;
+
     font-weight: 500 !important;
-    padding: 2px 8px !important;
+
+    padding: 3px 8px !important;
+
     cursor: pointer;
+
+    transition:
+        transform .15s ease,
+        box-shadow .15s ease;
+}
+
+.fc-event:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 2px 6px rgba(60,64,67,.18);
 }
 
 .fc-daygrid-event {
@@ -89,8 +105,89 @@ body {
     z-index: 99998 !important;
 }
 
+/* =========================================
+   CUTE + RESPONSIVE MORE EVENTS POPOVER
+========================================= */
+
 .fc-popover {
     z-index: 1000 !important;
+
+    width: min(420px, calc(100vw - 24px)) !important;
+    max-width: calc(100vw - 24px) !important;
+
+    border: 1px solid #dadce0 !important;
+    border-radius: 16px !important;
+
+    overflow: hidden !important;
+
+    box-shadow:
+        0 4px 8px rgba(60, 64, 67, 0.15),
+        0 8px 24px rgba(60, 64, 67, 0.15) !important;
+
+    background: #fff !important;
+}
+
+
+/* Popover header */
+
+.fc-popover-header {
+    padding: 12px 14px !important;
+
+    background: #fff !important;
+
+    border-bottom: 1px solid #f1f3f4 !important;
+
+    font-size: 14px !important;
+    font-weight: 600 !important;
+
+    color: #3c4043 !important;
+}
+
+
+/* Close button */
+
+.fc-popover-close {
+    width: 28px !important;
+    height: 28px !important;
+
+    border-radius: 50% !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    transition: background .2s ease;
+}
+
+.fc-popover-close:hover {
+    background: #f1f3f4 !important;
+}
+
+
+/* Events inside popup */
+
+.fc-popover-body {
+    padding: 8px !important;
+
+    max-height: 420px;
+
+    overflow-y: auto;
+}
+
+
+/* Nice scrollbar */
+
+.fc-popover-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.fc-popover-body::-webkit-scrollbar-thumb {
+    background: #dadce0;
+    border-radius: 10px;
+}
+
+.fc-popover-body::-webkit-scrollbar-track {
+    background: transparent;
 }
 .app-layout{
     display:flex;
@@ -104,7 +201,42 @@ body {
     padding:20px;
     overflow:auto;
 }
+/* =========================================
+   MORE LINK
+========================================= */
 
+.fc-more-link {
+    display: inline-flex !important;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 3px 9px !important;
+
+    margin-top: 3px !important;
+
+    border-radius: 999px !important;
+
+    background: #f1f3f4 !important;
+
+    color: #1a73e8 !important;
+
+    font-size: 12px !important;
+
+    font-weight: 600 !important;
+
+    text-decoration: none !important;
+
+    transition:
+        background .2s ease,
+        transform .15s ease;
+}
+
+.fc-more-link:hover {
+    background: #dbeafe !important;
+
+    transform: translateY(-1px);
+}
 .calendar-main{
     flex:1;
     background:#fff;
@@ -149,21 +281,40 @@ body {
 }
 @media (max-width: 768px) {
 
-    .calendar-wrapper {
-        padding: 4px;
+    .fc-popover {
+        width: calc(100vw - 16px) !important;
+
+        max-width: calc(100vw - 16px) !important;
+
+        border-radius: 18px !important;
     }
 
-    .fc-toolbar {
-        flex-direction: column;
-        gap: 5px;
+    .fc-popover-body {
+        max-height: 60vh;
+
+        padding: 8px !important;
     }
 
-    .fc-toolbar-title {
-        font-size: 16px !important;
+    .fc-popover-header {
+        padding: 13px !important;
+
+        font-size: 14px !important;
     }
 
-    .fc-button {
+    .fc-popover .fc-event {
+        min-height: 32px;
+
         font-size: 12px !important;
+
+        border-radius: 10px !important;
+
+        padding: 4px 8px !important;
+    }
+
+    .fc-more-link {
+        font-size: 11px !important;
+
+        padding: 3px 8px !important;
     }
 }
         .google-modal{
@@ -179,7 +330,7 @@ body {
     width:16px;
     height:16px;
     border-radius:50%;
-    background:#c0ca33;
+    background:#dfdf2c;
 }
 .calendar-header{
     height:64px;
@@ -188,7 +339,66 @@ body {
     align-items:center;
     justify-content:space-between;
     padding:0 20px;
-    background:white;
+    background:rgb(255, 255, 255);
+}
+/* =========================================
+   EVENT CONTENT
+========================================= */
+
+.custom-event-content {
+    display: flex;
+
+    align-items: center;
+
+    min-width: 0;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+}
+
+.event-photographer {
+    font-weight: 600;
+
+    flex-shrink: 0;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+.event-separator {
+    margin: 0 4px;
+
+    opacity: .7;
+
+    flex-shrink: 0;
+}
+
+.event-title {
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+/* Events inside the more popup */
+
+.fc-popover .fc-daygrid-event {
+    margin: 3px 2px !important;
+
+    border-radius: 10px !important;
+
+    min-height: 28px;
+
+    display: flex;
+
+    align-items: center;
+}
+.fc-popover .fc-event-main {
+    width: 100%;
+
+    overflow: hidden;
 }
 </style>
 </head>
@@ -314,15 +524,28 @@ document.addEventListener('DOMContentLoaded', function() {
     events: 'https://script.google.com/macros/s/AKfycbxCHYYzDZS39vL_REgx_uWXJspnhtlr5sQHQEl_XHN2a5aRym-h8YxpnB7RwvOiusdp/exec',
 
     eventContent: function(arg) {
+
+    const photographer =
+        arg.event.extendedProps.photographer || 'Unknown';
+
+    const title =
+        arg.event.title || 'Untitled';
+
     return {
         html: `
-        <div style="
-            overflow:hidden;
-            text-overflow:ellipsis;
-            white-space:nowrap;
-        ">
-            ${arg.event.extendedProps.photographer || 'Unknown'} . ${arg.event.title}
-        </div>
+            <div class="custom-event-content">
+
+                <span class="event-photographer">
+                    ${photographer}
+                </span>
+
+                <span class="event-separator">·</span>
+
+                <span class="event-title">
+                    ${title}
+                </span>
+
+            </div>
         `
     };
 },
